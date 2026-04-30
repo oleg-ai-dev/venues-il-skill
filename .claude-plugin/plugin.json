@@ -1,0 +1,37 @@
+{
+  "$schema": "https://claude.ai/schemas/plugin-manifest.schema.json",
+  "name": "israeli-events",
+  "version": "1.0.0",
+  "description": "Find Israeli live events (concerts, theatre, comedy, dance, opera, children's shows, festivals), venue logistics (parking, transport, nearby restaurants, capacity, accessibility), and complete outing plans. Bilingual (Hebrew + Russian). Affiliate purchase links via kassa.co.il (Russian) and kartisim.co.il (Hebrew).",
+  "author": {
+    "name": "venues-israel.com",
+    "email": "venues.israel@gmail.com",
+    "url": "https://www.venues-israel.com"
+  },
+  "homepage": "https://github.com/oleg-ai-dev/venues-il-skill",
+  "repository": "https://github.com/oleg-ai-dev/venues-il-skill",
+  "license": "MIT",
+  "keywords": [
+    "israel",
+    "events",
+    "venues",
+    "tickets",
+    "hebrew",
+    "russian",
+    "concerts",
+    "theatre",
+    "outing",
+    "logistics",
+    "parking",
+    "transport"
+  ],
+  "skills": [
+    "skills/israeli-events"
+  ],
+  "mcpServers": {
+    "israeli-events": {
+      "command": "node",
+      "args": ["mcp-server/dist/index.js"]
+    }
+  }
+}

@@ -1,0 +1,51 @@
+{
+  "name": "@oleg-ai-dev/venues-il-mcp",
+  "version": "1.0.0",
+  "description": "MCP server for Israeli live events, venues, and outing planning. Wraps the public agentic API at venues-israel.com.",
+  "type": "module",
+  "main": "dist/index.js",
+  "bin": {
+    "venues-il-mcp": "dist/index.js"
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "dev": "tsx src/index.ts"
+  },
+  "license": "MIT",
+  "author": {
+    "name": "venues-israel.com",
+    "email": "venues.israel@gmail.com",
+    "url": "https://www.venues-israel.com"
+  },
+  "homepage": "https://github.com/oleg-ai-dev/venues-il-skill",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/oleg-ai-dev/venues-il-skill.git",
+    "directory": "mcp-server"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "israel",
+    "events",
+    "venues",
+    "tickets",
+    "hebrew",
+    "russian"
+  ],
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.0.4"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "tsx": "^4.19.0",
+    "typescript": "^5.5.0"
+  }
+}
