@@ -5,65 +5,14 @@ on:
     tags: ['v*']
 
 permissions:
-  contents: write       # create release + upload assets
-  id-token: write       # OIDC for keyless Sigstore signing
-  attestations: write   # write build-provenance attestations
+  id-token: write
+  contents: write
+  attestations: write
 
 jobs:
   release:
-    name: Build, sign, release
-    runs-on: ubuntu-latest
-    timeout-minutes: 10
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-
-      - name: Build source tarball
-        run: |
-          mkdir -p dist
-          ARCHIVE="dist/venues-il-skill-${{ github.ref_name }}.tar.gz"
-          git archive --format=tar.gz --prefix="venues-il-skill-${{ github.ref_name }}/" -o "$ARCHIVE" HEAD
-          ls -la dist/
-
-      # Sigstore-signed build provenance via Attestations API. Visible
-      # via the public attestations endpoint; verifiable with
-      # `gh attestation verify`.
-      - name: Generate Sigstore-signed build provenance
-        uses: actions/attest-build-provenance@v4
-        with:
-          subject-path: |
-            SKILL.md
-            SKILL_HE.md
-            metadata.json
-            dist/*.tar.gz
-
-      # Older signature convention: produce .sig and .crt files attached
-      # as release assets so scanners that look for inline signatures
-      # alongside the asset (rather than the Attestations API) also pass.
-      - name: Install cosign
-        uses: sigstore/cosign-installer@v3
-
-      - name: Sign release tarball with cosign (keyless OIDC)
-        env:
-          COSIGN_EXPERIMENTAL: '1'
-        run: |
-          cd dist
-          for f in *.tar.gz; do
-            cosign sign-blob --yes \
-              --output-signature "${f}.sig" \
-              --output-certificate "${f}.crt" \
-              "$f"
-            ls -la "${f}" "${f}.sig" "${f}.crt"
-          done
-
-      - name: Create GitHub release
-        uses: softprops/action-gh-release@v2
-        with:
-          files: |
-            dist/*.tar.gz
-            dist/*.sig
-            dist/*.crt
-          generate_release_notes: true
-          fail_on_unmatched_files: true
+    uses: skills-il/release-workflow/.github/workflows/release.yml@v1
+    permissions:
+      id-token: write
+      contents: write
+      attestations: write
