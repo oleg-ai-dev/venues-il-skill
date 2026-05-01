@@ -1,6 +1,48 @@
 ---
 name: israeli-events
 description: Find Israeli live events (concerts, theatre, comedy, dance, opera, children's shows, festivals), venue logistics (parking, transport, nearby restaurants, capacity, accessibility), and complete outing plans. Bilingual Hebrew/Russian. Use when the user asks about live events in Israel; or wants venue parking/transport info; or asks "what should I do tonight in Tel Aviv / Haifa / Jerusalem"; or wants ticket purchase links for Israeli shows.
+metadata:
+  display_name:
+    en: Israeli Live Events
+    he: אירועים חיים בישראל
+  display_description:
+    en: Find live events, venue logistics (parking, transport, nearby restaurants), and outing plans across Israel. Bilingual Hebrew + Russian. Direct ticket-purchase links via Bravo's kassa.co.il and kartisim.co.il.
+    he: חיפוש הופעות חיות, לוגיסטיקת אולמות (חניה, תחבורה, מסעדות סמוכות) ותכנון יציאה ברחבי ישראל. דו-לשוני עברית ורוסית. קישורי רכישה ישירים דרך kassa.co.il ו-kartisim.co.il של Bravo.
+  tags:
+    en:
+      - israel
+      - events
+      - venues
+      - tickets
+      - hebrew
+      - russian
+      - concerts
+      - theater
+      - outing
+      - logistics
+      - parking
+      - transport
+    he:
+      - ישראל
+      - הופעות
+      - אירועים
+      - אולמות
+      - כרטיסים
+      - עברית
+      - רוסית
+      - קונצרטים
+      - תיאטרון
+      - יציאה
+      - חניה
+      - תחבורה
+  languages:
+    - he
+    - ru
+  provider:
+    name: venues-israel.com
+    email: venues.israel@gmail.com
+    url: https://www.venues-israel.com
+  license: MIT
 ---
 
 # Israeli Live Events Skill
