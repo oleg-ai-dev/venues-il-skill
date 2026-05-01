@@ -20,28 +20,50 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Generate Sigstore-signed attestations for skill artifacts
-        # Skills IL's signed_release check verifies attestations on the
-        # actual skill files (SKILL.md, SKILL_HE.md, metadata.json) via
-        # GitHub's Attestations API. Per agentskills.co.il/he/guides/
-        # github-verification-checklist.
-        uses: actions/attest-build-provenance@v4
-        with:
-          subject-path: |
-            SKILL.md
-            SKILL_HE.md
-            metadata.json
-
-      - name: Build source tarball (release asset)
+      - name: Build source tarball
         run: |
           mkdir -p dist
           ARCHIVE="dist/venues-il-skill-${{ github.ref_name }}.tar.gz"
           git archive --format=tar.gz --prefix="venues-il-skill-${{ github.ref_name }}/" -o "$ARCHIVE" HEAD
           ls -la dist/
 
+      # Sigstore-signed build provenance via Attestations API. Visible
+      # via the public attestations endpoint; verifiable with
+      # `gh attestation verify`.
+      - name: Generate Sigstore-signed build provenance
+        uses: actions/attest-build-provenance@v4
+        with:
+          subject-path: |
+            SKILL.md
+            SKILL_HE.md
+            metadata.json
+            dist/*.tar.gz
+
+      # Older signature convention: produce .sig and .crt files attached
+      # as release assets so scanners that look for inline signatures
+      # alongside the asset (rather than the Attestations API) also pass.
+      - name: Install cosign
+        uses: sigstore/cosign-installer@v3
+
+      - name: Sign release tarball with cosign (keyless OIDC)
+        env:
+          COSIGN_EXPERIMENTAL: '1'
+        run: |
+          cd dist
+          for f in *.tar.gz; do
+            cosign sign-blob --yes \
+              --output-signature "${f}.sig" \
+              --output-certificate "${f}.crt" \
+              "$f"
+            ls -la "${f}" "${f}.sig" "${f}.crt"
+          done
+
       - name: Create GitHub release
         uses: softprops/action-gh-release@v2
         with:
-          files: dist/*.tar.gz
+          files: |
+            dist/*.tar.gz
+            dist/*.sig
+            dist/*.crt
           generate_release_notes: true
           fail_on_unmatched_files: true
