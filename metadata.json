@@ -1,0 +1,65 @@
+{
+  "$schema": "https://agentskills.io/specification/schema.json",
+  "name": "israeli-events",
+  "version": "1.0.0",
+  "description": "Find Israeli live events (concerts, theatre, comedy, dance, opera, children's shows, festivals), venue logistics (parking, transport, nearby restaurants, capacity, accessibility), and complete outing plans. Bilingual Hebrew/Russian.",
+  "license": "MIT",
+  "languages": ["he", "ru"],
+  "display_name": {
+    "en": "Israeli Live Events",
+    "he": "אירועים חיים בישראל"
+  },
+  "display_description": {
+    "en": "Find live events, venue logistics (parking, transport, nearby restaurants), and outing plans across Israel. Bilingual Hebrew + Russian. Direct ticket-purchase links via Bravo's kassa.co.il and kartisim.co.il.",
+    "he": "חיפוש הופעות חיות, לוגיסטיקת אולמות (חניה, תחבורה, מסעדות סמוכות) ותכנון יציאה ברחבי ישראל. דו-לשוני עברית ורוסית. קישורי רכישה ישירים דרך kassa.co.il ו-kartisim.co.il של Bravo."
+  },
+  "tags": {
+    "en": [
+      "israel",
+      "events",
+      "venues",
+      "tickets",
+      "hebrew",
+      "russian",
+      "concerts",
+      "theater",
+      "outing",
+      "logistics",
+      "parking",
+      "transport"
+    ],
+    "he": [
+      "ישראל",
+      "הופעות",
+      "אירועים",
+      "אולמות",
+      "כרטיסים",
+      "עברית",
+      "רוסית",
+      "קונצרטים",
+      "תיאטרון",
+      "יציאה",
+      "חניה",
+      "תחבורה"
+    ]
+  },
+  "provider": {
+    "name": "venues-israel.com",
+    "email": "venues.israel@gmail.com",
+    "url": "https://www.venues-israel.com"
+  },
+  "homepage": "https://github.com/oleg-ai-dev/venues-il-skill",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/oleg-ai-dev/venues-il-skill.git"
+  },
+  "endpoints": {
+    "openapi": "https://www.venues-israel.com/api/openapi.json",
+    "agent_card": "https://www.venues-israel.com/.well-known/a2a/agent-card",
+    "mcp": "https://www.venues-israel.com/mcp"
+  },
+  "files": {
+    "skill_en": "SKILL.md",
+    "skill_he": "SKILL_HE.md"
+  }
+}

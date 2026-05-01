@@ -20,17 +20,24 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Build source tarball
+      - name: Generate Sigstore-signed attestations for skill artifacts
+        # Skills IL's signed_release check verifies attestations on the
+        # actual skill files (SKILL.md, SKILL_HE.md, metadata.json) via
+        # GitHub's Attestations API. Per agentskills.co.il/he/guides/
+        # github-verification-checklist.
+        uses: actions/attest-build-provenance@v4
+        with:
+          subject-path: |
+            SKILL.md
+            SKILL_HE.md
+            metadata.json
+
+      - name: Build source tarball (release asset)
         run: |
           mkdir -p dist
           ARCHIVE="dist/venues-il-skill-${{ github.ref_name }}.tar.gz"
           git archive --format=tar.gz --prefix="venues-il-skill-${{ github.ref_name }}/" -o "$ARCHIVE" HEAD
           ls -la dist/
-
-      - name: Generate Sigstore-signed build provenance
-        uses: actions/attest-build-provenance@v2
-        with:
-          subject-path: 'dist/*.tar.gz'
 
       - name: Create GitHub release
         uses: softprops/action-gh-release@v2
